@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agustina Rikert — Redactora Creativa</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --pink: #FF2F7B;
+    --green: #8BC4A0;
+    --green-dark: #5E9F7A;
+    --green-light: #D4EDE0;
+    --cream: #FEF9F4;
+    --dark: #1A1A1A;
+    --mid: #3D3D3D;
+    --light: #999;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--dark);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 20px 60px;
+    background: rgba(254,249,244,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px; font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+  .nav-logo span { color: var(--pink); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-size: 13px; font-weight: 500; letter-spacing: 0.5px;
+    text-transform: uppercase; color: var(--mid);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--pink); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding-top: 80px;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 80px 60px 80px 60px;
+    position: relative;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 600; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--pink);
+    margin-bottom: 32px;
+  }
+  .hero-tag::before {
+    content: ''; width: 32px; height: 2px; background: var(--pink);
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 6vw, 88px);
+    font-weight: 900;
+    line-height: 0.95;
+    letter-spacing: -3px;
+    margin-bottom: 32px;
+  }
+  .hero-title .italic { font-style: italic; color: var(--pink); }
+  .hero-title .line2 { display: block; color: var(--green-dark); }
+  .hero-desc {
+    font-size: 17px; line-height: 1.7; color: var(--mid);
+    max-width: 420px; margin-bottom: 48px;
+    font-weight: 300;
+  }
+  .hero-ctas { display: flex; gap: 16px; align-items: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--pink); color: white;
+    padding: 14px 32px; border-radius: 100px;
+    font-size: 14px; font-weight: 600; letter-spacing: 0.3px;
+    text-decoration: none; transition: all 0.25s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #e0206b; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(255,47,123,0.35); }
+  .btn-ghost {
+    border: 1.5px solid var(--dark); color: var(--dark);
+    padding: 14px 32px; border-radius: 100px;
+    font-size: 14px; font-weight: 600;
+    text-decoration: none; transition: all 0.25s;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: var(--pink); color: var(--pink); }
+
+  .hero-right {
+    background: var(--green);
+    position: relative; overflow: hidden;
+    display: flex; flex-direction: column; justify-content: flex-end;
+  }
+  .hero-right-inner {
+    padding: 60px;
+    position: relative; z-index: 2;
+  }
+  .hero-bubble {
+    position: absolute; border-radius: 50%;
+    background: rgba(255,255,255,0.15);
+  }
+  .hero-bubble.b1 { width: 300px; height: 300px; top: -80px; right: -60px; }
+  .hero-bubble.b2 { width: 180px; height: 180px; top: 40%; left: -40px; background: rgba(255,47,123,0.2); }
+  .hero-bubble.b3 { width: 120px; height: 120px; bottom: 120px; right: 60px; }
+
+  .hero-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 32px; margin-bottom: 48px;
+  }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 48px; font-weight: 900; color: white;
+    line-height: 1;
+  }
+  .stat-label { font-size: 13px; color: rgba(255,255,255,0.75); font-weight: 400; margin-top: 4px; }
+  .hero-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-style: italic;
+    color: white; line-height: 1.5;
+    border-left: 3px solid var(--pink);
+    padding-left: 20px;
+  }
+
+  /* SECTION BASE */
+  section { padding: 100px 60px; }
+  .section-label {
+    font-size: 11px; font-weight: 700; letter-spacing: 3px;
+    text-transform: uppercase; color: var(--pink);
+    margin-bottom: 16px; display: block;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 900; letter-spacing: -2px;
+    line-height: 1.05; margin-bottom: 24px;
+  }
+  .section-title em { font-style: italic; color: var(--green-dark); }
+
+  /* SOBRE MÍ */
+  .sobre-mi {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+    padding: 100px 60px;
+    background: white;
+  }
+  .sobre-text p {
+    font-size: 17px; line-height: 1.8; color: var(--mid);
+    font-weight: 300; margin-bottom: 20px;
+  }
+  .sobre-text p strong { color: var(--dark); font-weight: 600; }
+  .skills-grid { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 32px; }
+  .skill-chip {
+    background: var(--green-light); color: var(--green-dark);
+    padding: 8px 18px; border-radius: 100px;
+    font-size: 13px; font-weight: 600;
+  }
+  .sobre-right {
+    display: flex; flex-direction: column; gap: 24px;
+  }
+  .timeline-item {
+    display: flex; gap: 20px; align-items: flex-start;
+    padding: 24px; border-radius: 16px;
+    border: 1.5px solid rgba(0,0,0,0.06);
+    background: var(--cream);
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .timeline-item:hover { border-color: var(--pink); transform: translateX(4px); }
+  .tl-icon {
+    width: 40px; height: 40px; border-radius: 12px;
+    background: var(--pink); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 18px; flex-shrink: 0;
+  }
+  .tl-icon.green { background: var(--green); }
+  .tl-period { font-size: 12px; font-weight: 600; color: var(--light); letter-spacing: 0.5px; }
+  .tl-place { font-size: 16px; font-weight: 700; color: var(--dark); margin: 4px 0; }
+  .tl-role { font-size: 14px; color: var(--mid); }
+
+  /* TRABAJO */
+  .trabajo { background: var(--dark); color: white; padding: 100px 60px; }
+  .trabajo .section-title { color: white; }
+  .trabajo .section-title em { color: var(--green); }
+  .trabajo .section-label { color: var(--green); }
+  .clientes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px; margin-top: 60px;
+  }
+  .cliente-card {
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.09);
+    border-radius: 24px; padding: 40px;
+    transition: all 0.3s; cursor: pointer;
+    position: relative; overflow: hidden;
+  }
+  .cliente-card::before {
+    content: ''; position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,47,123,0.08) 0%, transparent 60%);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .cliente-card:hover::before { opacity: 1; }
+  .cliente-card:hover { border-color: rgba(255,47,123,0.4); transform: translateY(-4px); }
+  .cliente-sector {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--green);
+    margin-bottom: 12px;
+  }
+  .cliente-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 30px; font-weight: 900;
+    color: white; margin-bottom: 16px; letter-spacing: -1px;
+  }
+  .cliente-desc { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 24px; }
+  .cliente-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ctag {
+    padding: 6px 14px; border-radius: 100px;
+    font-size: 12px; font-weight: 600;
+    background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7);
+  }
+
+  /* MUESTRA DE TRABAJO */
+  .muestras { padding: 100px 60px; background: var(--cream); }
+  .muestras-intro {
+    display: grid; grid-template-columns: 1fr 2fr;
+    gap: 60px; margin-bottom: 80px; align-items: end;
+  }
+  .muestras-intro p { font-size: 17px; line-height: 1.7; color: var(--mid); font-weight: 300; }
+
+  /* TABS */
+  .tabs-nav { display: flex; gap: 0; margin-bottom: 48px; border-bottom: 2px solid rgba(0,0,0,0.08); }
+  .tab-btn {
+    padding: 16px 28px;
+    font-size: 14px; font-weight: 600;
+    color: var(--light); cursor: pointer;
+    border: none; background: none;
+    position: relative; transition: color 0.2s;
+    letter-spacing: 0.2px;
+  }
+  .tab-btn::after {
+    content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
+    height: 2px; background: var(--pink); transform: scaleX(0); transition: transform 0.25s;
+  }
+  .tab-btn.active { color: var(--dark); }
+  .tab-btn.active::after { transform: scaleX(1); }
+  .tab-btn:hover { color: var(--dark); }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; }
+
+  /* TEXTO CARDS */
+  .texto-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+  .texto-card {
+    background: white; border-radius: 20px; padding: 36px;
+    border: 1.5px solid rgba(0,0,0,0.06);
+    transition: all 0.25s;
+  }
+  .texto-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
+  .tc-tipo {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--pink);
+    margin-bottom: 12px;
+  }
+  .tc-cliente {
+    font-size: 12px; font-weight: 600; color: var(--light);
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;
+  }
+  .tc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px; font-weight: 700; color: var(--dark);
+    margin-bottom: 16px; line-height: 1.3;
+  }
+  .tc-text {
+    font-size: 14px; line-height: 1.8; color: var(--mid);
+    font-style: italic; border-left: 3px solid var(--green-light);
+    padding-left: 16px;
+  }
+
+  /* ESTRATEGIA CARD */
+  .estrategia-card {
+    background: white; border-radius: 20px;
+    border: 1.5px solid rgba(0,0,0,0.06); overflow: hidden;
+    margin-bottom: 24px;
+  }
+  .ec-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 28px 36px; cursor: pointer;
+    transition: background 0.2s;
+  }
+  .ec-header:hover { background: var(--cream); }
+  .ec-left { display: flex; gap: 16px; align-items: center; }
+  .ec-num {
+    width: 36px; height: 36px; border-radius: 10px;
+    background: var(--pink); color: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; font-weight: 700; flex-shrink: 0;
+  }
+  .ec-title { font-size: 18px; font-weight: 700; color: var(--dark); }
+  .ec-subtitle { font-size: 13px; color: var(--light); margin-top: 3px; }
+  .ec-toggle {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: var(--green-light); color: var(--green-dark);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; transition: transform 0.25s, background 0.2s;
+    flex-shrink: 0;
+  }
+  .estrategia-card.open .ec-toggle { transform: rotate(45deg); background: var(--pink); color: white; }
+  .ec-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .estrategia-card.open .ec-body { max-height: 1000px; }
+  .ec-body-inner {
+    padding: 0 36px 32px 36px; font-size: 15px; line-height: 1.8;
+    color: var(--mid); border-top: 1px solid rgba(0,0,0,0.06);
+    padding-top: 24px; font-weight: 300;
+  }
+  .ec-body-inner strong { color: var(--dark); font-weight: 600; }
+
+  /* COPIES DISPLAY */
+  .copy-display {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  }
+  .copy-bubble {
+    background: white; border-radius: 20px; padding: 28px;
+    position: relative; border: 1.5px solid rgba(0,0,0,0.06);
+    transition: all 0.25s;
+  }
+  .copy-bubble:hover { border-color: var(--green); }
+  .copy-brand {
+    font-size: 12px; font-weight: 700; color: var(--light);
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .copy-brand::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); flex-shrink: 0;
+  }
+  .copy-bubble p { font-size: 14px; line-height: 1.8; color: var(--mid); }
+  .copy-bubble p strong { color: var(--dark); }
+  .copy-context {
+    font-size: 11px; font-weight: 600; color: var(--pink);
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+  }
+
+  /* PROCESO */
+  .proceso {
+    background: linear-gradient(135deg, var(--green) 0%, #6aaa88 100%);
+    padding: 100px 60px; color: white;
+  }
+  .proceso .section-title { color: white; }
+  .proceso .section-title em { color: rgba(255,255,255,0.6); font-style: italic; }
+  .proceso .section-label { color: rgba(255,255,255,0.7); }
+  .proceso-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; }
+  .step {
+    background: rgba(255,255,255,0.12);
+    border-radius: 24px; padding: 40px;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.2);
+    transition: transform 0.25s;
+  }
+  .step:hover { transform: translateY(-6px); }
+  .step-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 56px; font-weight: 900;
+    color: rgba(255,255,255,0.2); line-height: 1;
+    margin-bottom: 16px;
+  }
+  .step-title { font-size: 20px; font-weight: 700; color: white; margin-bottom: 12px; }
+  .step-desc { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.7; font-weight: 300; }
+
+  /* FORMACIÓN */
+  .formacion { padding: 100px 60px; background: white; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 60px; }
+  .form-col-title {
+    font-size: 13px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--light);
+    margin-bottom: 28px; padding-bottom: 16px;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+  .form-item { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 24px; }
+  .form-dot {
+    width: 10px; height: 10px; border-radius: 50%;
+    background: var(--green); flex-shrink: 0; margin-top: 6px;
+  }
+  .form-year { font-size: 12px; color: var(--light); font-weight: 600; margin-bottom: 2px; }
+  .form-name { font-size: 16px; font-weight: 700; color: var(--dark); }
+  .form-detail { font-size: 14px; color: var(--mid); margin-top: 3px; }
+
+  /* CONTACTO */
+  .contacto {
+    background: var(--dark); color: white;
+    padding: 100px 60px;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: center;
+  }
+  .contacto .section-title { color: white; }
+  .contacto .section-title em { color: var(--pink); }
+  .contacto-desc { font-size: 17px; line-height: 1.7; color: rgba(255,255,255,0.65); font-weight: 300; margin: 24px 0 40px; }
+  .contact-items { display: flex; flex-direction: column; gap: 20px; }
+  .contact-item {
+    display: flex; gap: 16px; align-items: center;
+    padding: 20px 24px; border-radius: 16px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    text-decoration: none; color: white;
+    transition: all 0.25s;
+  }
+  .contact-item:hover { background: rgba(255,47,123,0.1); border-color: rgba(255,47,123,0.3); }
+  .ci-icon {
+    width: 44px; height: 44px; border-radius: 12px;
+    background: var(--pink); display: flex; align-items: center;
+    justify-content: center; font-size: 20px; flex-shrink: 0;
+  }
+  .ci-label { font-size: 12px; color: rgba(255,255,255,0.5); }
+  .ci-value { font-size: 16px; font-weight: 600; }
+  .contact-right { position: relative; }
+  .big-letter {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(160px, 20vw, 260px);
+    font-weight: 900; color: rgba(255,255,255,0.04);
+    line-height: 1; user-select: none; text-align: center;
+  }
+  .contact-cta-wrap {
+    position: absolute; inset: 0; display: flex;
+    align-items: center; justify-content: center;
+    flex-direction: column; gap: 20px;
+  }
+  .contact-cta-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px; font-style: italic; color: white;
+    text-align: center; line-height: 1.4;
+  }
+  .btn-cta {
+    background: var(--pink); color: white;
+    padding: 16px 40px; border-radius: 100px;
+    font-size: 15px; font-weight: 700;
+    text-decoration: none; transition: all 0.25s;
+    display: inline-block;
+  }
+  .btn-cta:hover { background: #e0206b; transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,47,123,0.4); }
+
+  /* FOOTER */
+  footer {
+    background: #111; color: rgba(255,255,255,0.4);
+    padding: 32px 60px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 13px;
+  }
+  footer a { color: var(--green); text-decoration: none; }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up {
+    opacity: 0;
+    animation: fadeUp 0.7s ease forwards;
+  }
+  .fade-up.d1 { animation-delay: 0.1s; }
+  .fade-up.d2 { animation-delay: 0.25s; }
+  .fade-up.d3 { animation-delay: 0.4s; }
+  .fade-up.d4 { animation-delay: 0.55s; }
+  .fade-up.d5 { animation-delay: 0.7s; }
+
+  /* SCROLLBAR */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: var(--cream); }
+  ::-webkit-scrollbar-thumb { background: var(--green); border-radius: 3px; }
+
+  /* DECORATIVE ACCENT LINE */
+  .accent-line {
+    display: flex; align-items: center; gap: 16px;
+    margin: 20px 0 48px;
+  }
+  .accent-line-bar { height: 3px; width: 60px; background: var(--pink); border-radius: 2px; }
+  .accent-line-text { font-size: 13px; color: var(--light); font-style: italic; }
+
+  @media (max-width: 900px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero, .sobre-mi, .contacto { grid-template-columns: 1fr; }
+    .hero-right { min-height: 50vh; }
+    section { padding: 60px 24px; }
+    .clientes-grid, .texto-grid, .copy-display, .proceso-steps, .form-grid, .muestras-intro { grid-template-columns: 1fr; }
+    .hero-left { padding: 60px 24px; }
+    .hero-right-inner { padding: 40px 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Agustina <span>Rikert</span></div>
+  <ul class="nav-links">
+    <li><a href="#sobre-mi">Sobre mí</a></li>
+    <li><a href="#trabajo">Clientes</a></li>
+    <li><a href="#textos">Textos</a></li>
+    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-left">
+    <span class="hero-tag fade-up d1">Portfolio 2025</span>
+    <h1 class="hero-title fade-up d2">
+      Redacto.<br>
+      <span class="italic">Pienso.</span><br>
+      <span class="line2">Conecto.</span>
+    </h1>
+    <p class="hero-desc fade-up d3">
+      Copywriter y redactora de contenidos. Creo textos que no solo se leen, sino que mueven a la acción. Estrategia, creatividad y claridad en cada palabra.
+    </p>
+    <div class="hero-ctas fade-up d4">
+      <a href="#textos" class="btn-primary">Ver mis textos</a>
+      <a href="#contacto" class="btn-ghost">Contactarme</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-bubble b1"></div>
+    <div class="hero-bubble b2"></div>
+    <div class="hero-bubble b3"></div>
+    <div class="hero-right-inner">
+      <div class="hero-stats">
+        <div>
+          <div class="stat-num">4+</div>
+          <div class="stat-label">Años de experiencia</div>
+        </div>
+        <div>
+          <div class="stat-num">10+</div>
+          <div class="stat-label">Marcas acompañadas</div>
+        </div>
+        <div>
+          <div class="stat-num">3</div>
+          <div class="stat-label">Rubros distintos</div>
+        </div>
+        <div>
+          <div class="stat-num">∞</div>
+          <div class="stat-label">Ganas de escribir</div>
+        </div>
+      </div>
+      <p class="hero-quote">
+        "El contenido no es solo publicar. Es saber qué decir, a quién y para qué."
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- SOBRE MÍ -->
+<div class="sobre-mi" id="sobre-mi">
+  <div class="sobre-text">
+    <span class="section-label">Sobre mí</span>
+    <h2 class="section-title">Hola,<br>soy <em>Agus</em>.</h2>
+    <div class="accent-line">
+      <div class="accent-line-bar"></div>
+      <span class="accent-line-text">Técnica en Periodismo · Rafaela, Argentina</span>
+    </div>
+    <p>
+      Arranqué escribiendo notas, artículos y noticias. Ahí aprendí algo que hoy sigue siendo la base de todo: <strong>hablar con intención, comunicar con sentido</strong>.
+    </p>
+    <p>
+      Con el tiempo me metí en el mundo digital: community management, redacción SEO, copywriting. Pasé por marcas locales, agencias, startups en México y empresas grandes con ecommerce.
+    </p>
+    <p>
+      Hoy combino todo eso en un solo lugar: <strong>estrategia, redacción y criterio editorial</strong>, para que las marcas dejen de improvisar y empiecen a comunicar con propósito.
+    </p>
+    <div class="skills-grid">
+      <span class="skill-chip">Copywriting</span>
+      <span class="skill-chip">Estrategia de contenido</span>
+      <span class="skill-chip">Redacción SEO</span>
+      <span class="skill-chip">Email marketing</span>
+      <span class="skill-chip">Guiones para reels</span>
+      <span class="skill-chip">UX Writing</span>
+      <span class="skill-chip">Meta Ads</span>
+      <span class="skill-chip">Redacción web</span>
+    </div>
+  </div>
+  <div class="sobre-right">
+    <div class="timeline-item">
+      <div class="tl-icon">✍️</div>
+      <div>
+        <div class="tl-period">Oct 2024 · Abr 2026</div>
+        <div class="tl-place">Agencia Gramax Digital</div>
+        <div class="tl-role">Copywriter — Contenido creativo, estrategias y Meta Ads para múltiples clientes</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-icon green">🌿</div>
+      <div>
+        <div class="tl-period">Jul 2023 · Jun 2024</div>
+        <div class="tl-place">Quotidien Essential Moments · México</div>
+        <div class="tl-role">SEO Copywriter — Blog, redes sociales y guiones para reels</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-icon">🏷️</div>
+      <div>
+        <div class="tl-period">Sept 2023 · Jun 2024</div>
+        <div class="tl-place">BullMetrix Growth Marketing</div>
+        <div class="tl-role">SEO Copywriter — Contenido para ecommerce Naldo (fichas, categorías, blog)</div>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="tl-icon green">📰</div>
+      <div>
+        <div class="tl-period">Nov 2021 · Jul 2023</div>
+        <div class="tl-place">Diario Castellanos Rafaela</div>
+        <div class="tl-role">Periodista web + Creadora de contenido Instagram</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CLIENTES -->
+<section class="trabajo" id="trabajo">
+  <span class="section-label">Clientes</span>
+  <h2 class="section-title">Marcas que <em>acompañé</em></h2>
+  <div class="clientes-grid">
+    <div class="cliente-card">
+      <div class="cliente-sector">Indumentaria · Insumos</div>
+      <div class="cliente-name">Avíos Estilo</div>
+      <div class="cliente-desc">Proveedor de etiquetas para marcas de indumentaria y calzado. Desarrollé estrategia de contenido completa, pilares de comunicación, calendarios de posteos, campañas de Meta Ads y flujos de email marketing.</div>
+      <div class="cliente-tags">
+        <span class="ctag">Estrategia</span>
+        <span class="ctag">Meta Ads</span>
+        <span class="ctag">Email marketing</span>
+        <span class="ctag">Guiones</span>
+      </div>
+    </div>
+    <div class="cliente-card">
+      <div class="cliente-sector">Diseño de Interiores · Premium</div>
+      <div class="cliente-name">Cueros Leblon</div>
+      <div class="cliente-desc">Distribuidor de cueros de calidad exportadora para proyectos de interiorismo y arquitectura. Redacté calendarios de contenido con voz sofisticada y editorial, alineados al mundo del diseño de lujo.</div>
+      <div class="cliente-tags">
+        <span class="ctag">Calendario de contenidos</span>
+        <span class="ctag">Copies Instagram</span>
+        <span class="ctag">Voz de marca</span>
+      </div>
+    </div>
+    <div class="cliente-card">
+      <div class="cliente-sector">Servicios · Social Impact</div>
+      <div class="cliente-name">Jardín del Cielo</div>
+      <div class="cliente-desc">Cementerio parque y crematorio privado con más de 30 años en Trelew. Desarrollé estrategia de contenido, redacción de sitio web completo, anuncios de Meta Ads y pilares editoriales con tono empático y claro.</div>
+      <div class="cliente-tags">
+        <span class="ctag">Estrategia</span>
+        <span class="ctag">Web copy</span>
+        <span class="ctag">Meta Ads</span>
+        <span class="ctag">Tono empático</span>
+      </div>
+    </div>
+    <div class="cliente-card">
+      <div class="cliente-sector">Turismo · Experiencias</div>
+      <div class="cliente-name">La Panacea Viajes</div>
+      <div class="cliente-desc">Agencia de turismo especializada en viajes de experiencia. Redacté calendarios de contenido mensuales con voz cálida, cercana y evocadora, para generar comunidad y conversión a reservas.</div>
+      <div class="cliente-tags">
+        <span class="ctag">Calendario de contenidos</span>
+        <span class="ctag">Copies Instagram</span>
+        <span class="ctag">Guiones de voz en off</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEXTOS / MUESTRAS -->
+<section class="muestras" id="textos">
+  <div class="muestras-intro">
+    <div>
+      <span class="section-label">Textos</span>
+      <h2 class="section-title">Lo que <em>escribo</em></h2>
+    </div>
+    <p>Cada texto tiene un objetivo: conectar con las personas correctas, en el momento justo, con las palabras que generan acción. Acá vas a ver algunos de los trabajos más representativos de mi carrera.</p>
+  </div>
+
+  <!-- TABS -->
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('copies', this)">Copies de redes</button>
+    <button class="tab-btn" onclick="switchTab('estrategia', this)">Estrategia</button>
+    <button class="tab-btn" onclick="switchTab('ads', this)">Anuncios</button>
+    <button class="tab-btn" onclick="switchTab('web', this)">Web copy</button>
+  </div>
+
+  <!-- TAB: COPIES -->
+  <div class="tab-content active" id="tab-copies">
+    <div class="copy-display">
+      <div class="copy-bubble">
+        <div class="copy-brand">La Panacea Viajes · Instagram</div>
+        <div class="copy-context">Post inspiracional</div>
+        <p>Viajar distinto es bajar el ruido, escuchar el entorno y estar presentes en cada lugar que pisamos. Naturaleza, silencio y conexión real. Esa es —y sigue siendo— la esencia de La Panacea.<br><br>¿Qué es para vos viajar distinto?</p>
+      </div>
+      <div class="copy-bubble">
+        <div class="copy-brand">La Panacea Viajes · Instagram</div>
+        <div class="copy-context">Reel Grecia y Turquía — Voz en off</div>
+        <p>Hay cosas que no entran en una foto. Como la forma en que cambia la luz en cada lugar. Las callecitas de piedra, los balcones con flores, las casas de colores, la música en las calles.<br><br>Caminar sin entender del todo… y aun así, sentirse en casa.</p>
+      </div>
+      <div class="copy-bubble">
+        <div class="copy-brand">Cueros Leblon · Instagram</div>
+        <div class="copy-context">Post de producto</div>
+        <p>La exclusividad no está en la perfección, sino en lo auténtico. Patagonia Brown es la prueba de que lo perfectamente imperfecto no se oculta, se exhibe con orgullo.</p>
+      </div>
+      <div class="copy-bubble">
+        <div class="copy-brand">Cueros Leblon · Instagram</div>
+        <div class="copy-context">Carrusel interiorismo</div>
+        <p>El cuero tiene el poder de transformar un espacio sin necesidad de dominarlo. La clave está en encontrar el equilibrio perfecto entre texturas y materiales.<br><br>Deslizá para descubrir 5 maneras de sumar cueros Leblon a tus proyectos con sofisticación y armonía ✨</p>
+      </div>
+      <div class="copy-bubble">
+        <div class="copy-brand">Jardín del Cielo · Instagram</div>
+        <div class="copy-context">Anuncio cremación de mascotas</div>
+        <p>Muchas personas no saben que este servicio está incluido dentro de nuestro Plan Integral Familiar. Y cuando lo descubren, cambia completamente la forma de verlo. Porque saben que, llegado el momento, también van a poder despedir a su mascota con el cuidado que merece.</p>
+      </div>
+      <div class="copy-bubble">
+        <div class="copy-brand">Avíos Estilo · Instagram</div>
+        <div class="copy-context">Anuncio TOFU — Copy</div>
+        <p>Cuando empezás a mirar tu producto con más atención, empezás a notar detalles que antes pasaban desapercibidos. La etiqueta es uno de ellos. 🧵<br><br>También forma parte de cómo se ve tu marca en cada prenda.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: ESTRATEGIA -->
+  <div class="tab-content" id="tab-estrategia">
+    <div class="estrategia-card open" id="ec1">
+      <div class="ec-header" onclick="toggleCard('ec1')">
+        <div class="ec-left">
+          <div class="ec-num">1</div>
+          <div>
+            <div class="ec-title">Estrategia de contenido — Avíos Estilo</div>
+            <div class="ec-subtitle">Ejes de comunicación para un proveedor de etiquetas para indumentaria</div>
+          </div>
+        </div>
+        <div class="ec-toggle">+</div>
+      </div>
+      <div class="ec-body">
+        <div class="ec-body-inner">
+          <p>El enfoque de comunicación para <strong>Avíos Estilo</strong> parte de un objetivo central: construir confianza en un mercado donde la desconfianza es el principal freno a la compra.</p>
+          <br>
+          <p>A partir de la investigación de mercado se detectó que el público no solo evalúa precio o producto, sino, sobre todo, <strong>el riesgo de equivocarse al elegir proveedor</strong>. Por eso, la comunicación debe ayudar a reducir ese riesgo percibido, mostrando cómo se trabaja, qué criterio se usa para recomendar, quién está detrás y qué gana el cliente al elegir Avíos.</p>
+          <br>
+          <p>Este nuevo enfoque propone dejar de comunicar sólo "qué se hace" y empezar a mostrar también: <strong>cómo se hace, por qué se recomienda cada cosa, quién está detrás y cómo eso impacta en la marca del cliente</strong>.</p>
+          <br>
+          <p>Se definieron <strong>cinco ejes de contenido</strong>: Resultados reales con historia · Educación sobre etiquetas · El proceso por dentro · Autoridad desde la experiencia · Confianza y respaldo.</p>
+        </div>
+      </div>
+    </div>
+    <div class="estrategia-card" id="ec2">
+      <div class="ec-header" onclick="toggleCard('ec2')">
+        <div class="ec-left">
+          <div class="ec-num">2</div>
+          <div>
+            <div class="ec-title">Estrategia de contenido — Jardín del Cielo</div>
+            <div class="ec-subtitle">Plan editorial y posicionamiento para un cementerio parque privado</div>
+          </div>
+        </div>
+        <div class="ec-toggle">+</div>
+      </div>
+      <div class="ec-body">
+        <div class="ec-body-inner">
+          <p><strong>Jardín del Cielo</strong> es un cementerio y crematorio parque privado con más de 30 años en Trelew. El desafío: comunicar servicios funerarios con <strong>empatía, claridad y sin generar rechazo</strong>.</p>
+          <br>
+          <p>Desarrollé buyer persona, propuesta de valor, análisis de diferenciadores y pilares de contenido. El tono definido: <strong>empático, respetuoso, claro y cercano</strong>, evitando tecnicismos.</p>
+          <br>
+          <p>El gran diferencial del Plan Integral Familiar —la <strong>cremación de mascotas incluida</strong>, única en la región— fue el eje narrativo principal de toda la estrategia. Una decisión de comunicación que conecta emocionalmente con el público.</p>
+          <br>
+          <p>Pilares: Educación clara · Las mascotas son parte de la familia · El valor de anticiparse · Conexión con la comunidad.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: ADS -->
+  <div class="tab-content" id="tab-ads">
+    <div class="texto-grid">
+      <div class="texto-card">
+        <div class="tc-tipo">Guión Reel — TOFU</div>
+        <div class="tc-cliente">Avíos Estilo · Meta Ads</div>
+        <div class="tc-title">Dos prendas pueden ser exactamente iguales… pero una verse más prolija.</div>
+        <div class="tc-text">"Si tenés una marca de indumentaria o de calzado y estás creciendo, seguro empezaste a mirar cosas que antes no mirabas. Esos pequeños detalles que hacen que tus prendas se vean distintas. La etiqueta es uno de esos detalles."</div>
+      </div>
+      <div class="texto-card">
+        <div class="tc-tipo">Guión Reel — BOFU</div>
+        <div class="tc-cliente">Avíos Estilo · Meta Ads</div>
+        <div class="tc-title">¿Querés cotizar etiquetas para tu marca? Sólo necesitamos 3 datos.</div>
+        <div class="tc-text">"Primero: qué tipo de etiqueta estás buscando. Segundo: la medida de la etiqueta. Tercero: la cantidad que necesitás producir. Y si tenés el diseño o el logo, mejor todavía. Con esa información ya podemos preparar tu cotización."</div>
+      </div>
+      <div class="texto-card">
+        <div class="tc-tipo">Carrusel — TOFU</div>
+        <div class="tc-cliente">Jardín del Cielo · Meta Ads</div>
+        <div class="tc-title">¿Tu cobertura de sepelio cubre todo lo que pensás?</div>
+        <div class="tc-text">"Tener cobertura no siempre significa tener todo incluido. Y muchos pagan un servicio de sepelio sin saber bien qué cubre. Informarte también es una forma de cuidar a tu familia."</div>
+      </div>
+      <div class="texto-card">
+        <div class="tc-tipo">Email marketing — Contenido de valor</div>
+        <div class="tc-cliente">Avíos Estilo · Email</div>
+        <div class="tc-title">¿El plastisol es para tu producto? 🤔</div>
+        <div class="tc-text">"No se trata sólo de 'qué queda lindo', sino de para qué producto es y cómo se va a usar. Antes de producir, siempre preguntamos dónde va aplicada la etiqueta. Así nos aseguramos de que la elección tenga sentido y de que el resultado funcione de verdad."</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: WEB -->
+  <div class="tab-content" id="tab-web">
+    <div class="texto-grid">
+      <div class="texto-card">
+        <div class="tc-tipo">Home — Hero principal</div>
+        <div class="tc-cliente">Jardín del Cielo · Sitio web</div>
+        <div class="tc-title">Plan Integral Familiar: todo resuelto para vos y los tuyos</div>
+        <div class="tc-text">Parcela o cremación, sepelio y cremación de mascotas, en un solo plan. Porque si decimos que es familiar, también pensamos en tu compañero de cuatro patas.</div>
+      </div>
+      <div class="texto-card">
+        <div class="tc-tipo">Página de servicios</div>
+        <div class="tc-cliente">Jardín del Cielo · Sitio web</div>
+        <div class="tc-title">Cremación de mascotas — Un servicio único en la región</div>
+        <div class="tc-text">"Sabemos lo difícil que es despedirse de una mascota. Por eso estamos para acompañarte. Nuestro compromiso es honrar siempre el vínculo que los unió. Porque ellos también son parte de la familia."</div>
+      </div>
+      <div class="texto-card">
+        <div class="tc-tipo">Página de plan</div>
+        <div class="tc-cliente">Jardín del Cielo · Sitio web</div>
+        <div class="tc-title">Una decisión que habla de amor</div>
+        <div class="tc-text">El Plan Integral Familiar es el único en la región que contempla todo lo que necesitás: cremación o parcela, sepelio y cremación de mascotas. Es una manera amorosa de anticiparte, cuidar a los tuyos y vivir con tranquilidad.</div>
+      </div>
+      <div class="texto-card">
+        <div class="tc-tipo">Investigación de mercado aplicada</div>
+        <div class="tc-cliente">Avíos Estilo · Estrategia</div>
+        <div class="tc-title">El problema del cliente: miedo a equivocarse</div>
+        <div class="tc-text">"Este público vive con miedo a equivocarse al elegir proveedor de etiquetas, porque siente que lo que está en juego no es solo un insumo, sino parte de la identidad de su marca. En el fondo, no busca solo etiquetas: busca seguridad, respaldo y tranquilidad."</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESO -->
+<section class="proceso" id="proceso">
+  <span class="section-label">Cómo trabajo</span>
+  <h2 class="section-title">No arranco<br><em>diseñando.</em><br>Arranco entendiendo.</h2>
+  <div class="proceso-steps">
+    <div class="step">
+      <div class="step-num">01</div>
+      <div class="step-title">Miro tu marca</div>
+      <div class="step-desc">Entiendo qué estás comunicando hoy, qué funciona, qué no, y qué oportunidades hay sin explotar. Sin prejuicios y con mirada editorial.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">02</div>
+      <div class="step-title">Ordeno ideas</div>
+      <div class="step-desc">Defino la estrategia: qué conviene mostrar, cómo decirlo, a quién y para qué. Cada publicación responde a una idea, no a la urgencia del momento.</div>
+    </div>
+    <div class="step">
+      <div class="step-num">03</div>
+      <div class="step-title">Creo el contenido</div>
+      <div class="step-desc">Redacto los textos: copies, guiones, estrategias, emails. Con voz propia de la marca, criterio editorial y atención a cada detalle.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMACIÓN -->
+<section class="formacion" id="formacion">
+  <span class="section-label">Formación</span>
+  <h2 class="section-title">Aprendizaje <em>continuo</em></h2>
+  <div class="form-grid">
+    <div>
+      <div class="form-col-title">Educación formal</div>
+      <div class="form-item">
+        <div class="form-dot"></div>
+        <div>
+          <div class="form-year">2015 – 2020</div>
+          <div class="form-name">UCSE Rafaela</div>
+          <div class="form-detail">Técnica Universitaria en Periodismo</div>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-dot" style="background:var(--pink)"></div>
+        <div>
+          <div class="form-year">2021 – 2022</div>
+          <div class="form-name">Educación IT</div>
+          <div class="form-detail">Community Management · Marketing Digital · SEO · Marketing de Contenidos</div>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-dot"></div>
+        <div>
+          <div class="form-year">2023</div>
+          <div class="form-name">Rúcula Digital Academy</div>
+          <div class="form-detail">Redacción SEO & Copywriting</div>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-dot" style="background:var(--pink)"></div>
+        <div>
+          <div class="form-year">2024 – en curso</div>
+          <div class="form-name">Luzzi Digital</div>
+          <div class="form-detail">Copywriting: escribir para vender · Edición de video con CapCut</div>
+        </div>
+      </div>
+      <div class="form-item">
+        <div class="form-dot"></div>
+        <div>
+          <div class="form-year">2025</div>
+          <div class="form-name">Instagram para Negocios</div>
+          <div class="form-detail">Estrategia y crecimiento en redes</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="form-col-title">Idiomas y competencias</div>
+      <div class="form-item">
+        <div class="form-dot" style="background:var(--pink)"></div>
+        <div>
+          <div class="form-name">Inglés — Nivel B2</div>
+          <div class="form-detail">Marco Común Europeo de Referencia (MCER)</div>
+        </div>
+      </div>
+      <div class="form-col-title" style="margin-top: 40px;">Lo que hago mejor</div>
+      <div class="form-item">
+        <div class="form-dot"></div>
+        <div><div class="form-name">Encontrar el ángulo que conecta</div><div class="form-detail">Siempre hay una historia detrás de un producto o servicio. Sé encontrarla.</div></div>
+      </div>
+      <div class="form-item">
+        <div class="form-dot" style="background:var(--pink)"></div>
+        <div><div class="form-name">Adaptar la voz a cada marca</div><div class="form-detail">De lo sofisticado al cotidiano, mantengo coherencia y personalidad en cada texto.</div></div>
+      </div>
+      <div class="form-item">
+        <div class="form-dot"></div>
+        <div><div class="form-name">Pensar antes de escribir</div><div class="form-detail">Ningún texto sale sin estrategia. Primero el "para qué", después el "cómo".</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<div class="contacto" id="contacto">
+  <div>
+    <span class="section-label" style="color:var(--green)">Trabajemos juntos</span>
+    <h2 class="section-title">¿Tenés un<br>proyecto en <em>mente</em>?</h2>
+    <p class="contacto-desc">Si lo que viste resonó con lo que necesitás, escribime. Cuanto más me contés sobre tu marca, mejor puedo ayudarte.</p>
+    <div class="contact-items">
+      <a href="mailto:agusrikert2@gmail.com" class="contact-item">
+        <div class="ci-icon">✉️</div>
+        <div>
+          <div class="ci-label">Email</div>
+          <div class="ci-value">agusrikert2@gmail.com</div>
+        </div>
+      </a>
+      <a href="https://wa.me/5493492228854" class="contact-item">
+        <div class="ci-icon">💬</div>
+        <div>
+          <div class="ci-label">WhatsApp</div>
+          <div class="ci-value">+54 9 3492 228854</div>
+        </div>
+      </a>
+      <a href="https://www.linkedin.com/in/agustina-rikert/" target="_blank" class="contact-item">
+        <div class="ci-icon">💼</div>
+        <div>
+          <div class="ci-label">LinkedIn</div>
+          <div class="ci-value">agustina-rikert</div>
+        </div>
+      </a>
+    </div>
+  </div>
+  <div class="contact-right">
+    <div class="big-letter">AG</div>
+    <div class="contact-cta-wrap">
+      <p class="contact-cta-text">"Si llegaste hasta acá,<br>ya aprendiste algo."</p>
+      <a href="mailto:agusrikert2@gmail.com" class="btn-cta">Escribirme ahora →</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Agustina Rikert · Redactora de contenidos</span>
+  <span>Hecho con mucho criterio editorial ✍️</span>
+</footer>
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function toggleCard(id) {
+    const card = document.getElementById(id);
+    card.classList.toggle('open');
+  }
+
+  // Intersection observer for subtle reveal
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.cliente-card, .texto-card, .copy-bubble, .step, .form-item, .timeline-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>
