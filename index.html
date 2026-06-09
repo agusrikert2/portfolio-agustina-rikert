@@ -18,7 +18,6 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -60,7 +59,7 @@
   }
   .hero-left {
     display: flex; flex-direction: column; justify-content: center;
-    padding: 80px 60px 80px 60px;
+    padding: 80px 60px;
     position: relative;
   }
   .hero-tag {
@@ -197,22 +196,41 @@
   .tl-place { font-size: 16px; font-weight: 700; color: var(--dark); margin: 4px 0; }
   .tl-role { font-size: 14px; color: var(--mid); }
 
-  /* TRABAJO */
-  .trabajo { background: var(--dark); color: white; padding: 100px 60px; }
-  .trabajo .section-title { color: white; }
-  .trabajo .section-title em { color: var(--green); }
-  .trabajo .section-label { color: var(--green); }
-  .clientes-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 32px; margin-top: 60px;
+  .accent-line {
+    display: flex; align-items: center; gap: 16px;
+    margin: 20px 0 48px;
   }
+  .accent-line-bar { height: 3px; width: 60px; background: var(--pink); border-radius: 2px; }
+  .accent-line-text { font-size: 13px; color: var(--light); font-style: italic; }
+
+  /* MARCAS — SLIDER */
+  .marcas { background: var(--dark); color: white; padding: 100px 0; overflow: hidden; }
+  .marcas-header { padding: 0 60px 60px; }
+  .marcas .section-title { color: white; }
+  .marcas .section-title em { color: var(--green); }
+  .marcas .section-label { color: var(--green); }
+
+  .slider-wrap { position: relative; }
+  .slider-track {
+    display: flex; gap: 24px;
+    overflow-x: auto; scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 0 60px 24px;
+    -ms-overflow-style: none; scrollbar-width: none;
+    cursor: grab;
+  }
+  .slider-track::-webkit-scrollbar { display: none; }
+  .slider-track.grabbing { cursor: grabbing; }
+
   .cliente-card {
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.09);
     border-radius: 24px; padding: 40px;
-    transition: all 0.3s; cursor: pointer;
-    position: relative; overflow: hidden;
+    min-width: 340px; max-width: 340px;
+    scroll-snap-align: start;
+    transition: all 0.3s; position: relative; overflow: hidden;
+    display: flex; flex-direction: column;
+    text-decoration: none; color: inherit;
   }
   .cliente-card::before {
     content: ''; position: absolute; inset: 0;
@@ -228,18 +246,40 @@
   }
   .cliente-name {
     font-family: 'Playfair Display', serif;
-    font-size: 30px; font-weight: 900;
+    font-size: 28px; font-weight: 900;
     color: white; margin-bottom: 16px; letter-spacing: -1px;
   }
-  .cliente-desc { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 24px; }
-  .cliente-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .cliente-desc {
+    font-size: 14px; color: rgba(255,255,255,0.6);
+    line-height: 1.7; margin-bottom: 24px; flex: 1;
+  }
+  .cliente-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
   .ctag {
     padding: 6px 14px; border-radius: 100px;
     font-size: 12px; font-weight: 600;
     background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.7);
   }
+  .cliente-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--green);
+    margin-top: auto;
+  }
+  .cliente-link svg { transition: transform 0.2s; }
+  .cliente-card:hover .cliente-link svg { transform: translateX(3px); }
 
-  /* MUESTRA DE TRABAJO */
+  .slider-controls {
+    display: flex; gap: 12px; justify-content: center; padding: 32px 60px 0;
+  }
+  .slider-btn {
+    width: 44px; height: 44px; border-radius: 50%;
+    background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15);
+    color: white; font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s;
+  }
+  .slider-btn:hover { background: var(--pink); border-color: var(--pink); }
+
+  /* TEXTOS */
   .muestras { padding: 100px 60px; background: var(--cream); }
   .muestras-intro {
     display: grid; grid-template-columns: 1fr 2fr;
@@ -247,15 +287,19 @@
   }
   .muestras-intro p { font-size: 17px; line-height: 1.7; color: var(--mid); font-weight: 300; }
 
-  /* TABS */
-  .tabs-nav { display: flex; gap: 0; margin-bottom: 48px; border-bottom: 2px solid rgba(0,0,0,0.08); }
+  .tabs-nav {
+    display: flex; gap: 0; margin-bottom: 48px;
+    border-bottom: 2px solid rgba(0,0,0,0.08);
+    overflow-x: auto; -ms-overflow-style: none; scrollbar-width: none;
+  }
+  .tabs-nav::-webkit-scrollbar { display: none; }
   .tab-btn {
     padding: 16px 28px;
     font-size: 14px; font-weight: 600;
     color: var(--light); cursor: pointer;
     border: none; background: none;
     position: relative; transition: color 0.2s;
-    letter-spacing: 0.2px;
+    letter-spacing: 0.2px; white-space: nowrap;
   }
   .tab-btn::after {
     content: ''; position: absolute; bottom: -2px; left: 0; right: 0;
@@ -268,35 +312,39 @@
   .tab-content { display: none; }
   .tab-content.active { display: block; }
 
-  /* TEXTO CARDS */
-  .texto-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
-  .texto-card {
-    background: white; border-radius: 20px; padding: 36px;
+  /* COPIES DISPLAY */
+  .copy-display {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  }
+  .copy-bubble {
+    background: white; border-radius: 20px; padding: 28px;
     border: 1.5px solid rgba(0,0,0,0.06);
-    transition: all 0.25s;
+    transition: all 0.25s; display: flex; flex-direction: column;
   }
-  .texto-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
-  .tc-tipo {
-    font-size: 11px; font-weight: 700; letter-spacing: 2px;
-    text-transform: uppercase; color: var(--pink);
-    margin-bottom: 12px;
+  .copy-bubble:hover { border-color: var(--green); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
+  .copy-brand {
+    font-size: 12px; font-weight: 700; color: var(--light);
+    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px;
+    display: flex; align-items: center; gap: 8px;
   }
-  .tc-cliente {
-    font-size: 12px; font-weight: 600; color: var(--light);
-    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px;
+  .copy-brand::before {
+    content: ''; width: 8px; height: 8px; border-radius: 50%;
+    background: var(--green); flex-shrink: 0;
   }
-  .tc-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 22px; font-weight: 700; color: var(--dark);
-    margin-bottom: 16px; line-height: 1.3;
+  .copy-context {
+    font-size: 11px; font-weight: 600; color: var(--pink);
+    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 12px;
   }
-  .tc-text {
-    font-size: 14px; line-height: 1.8; color: var(--mid);
-    font-style: italic; border-left: 3px solid var(--green-light);
-    padding-left: 16px;
+  .copy-bubble p { font-size: 14px; line-height: 1.8; color: var(--mid); flex: 1; }
+  .copy-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 600; color: var(--green-dark);
+    text-decoration: none; margin-top: 16px;
+    transition: color 0.2s;
   }
+  .copy-link:hover { color: var(--pink); }
 
-  /* ESTRATEGIA CARD */
+  /* ESTRATEGIA */
   .estrategia-card {
     background: white; border-radius: 20px;
     border: 1.5px solid rgba(0,0,0,0.06); overflow: hidden;
@@ -328,63 +376,52 @@
   .ec-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
   .estrategia-card.open .ec-body { max-height: 1000px; }
   .ec-body-inner {
-    padding: 0 36px 32px 36px; font-size: 15px; line-height: 1.8;
+    padding: 24px 36px 32px; font-size: 15px; line-height: 1.8;
     color: var(--mid); border-top: 1px solid rgba(0,0,0,0.06);
-    padding-top: 24px; font-weight: 300;
+    font-weight: 300;
   }
   .ec-body-inner strong { color: var(--dark); font-weight: 600; }
 
-  /* COPIES DISPLAY */
-  .copy-display {
-    display: grid; grid-template-columns: 1fr 1fr; gap: 20px;
+  /* WEB CARDS */
+  .web-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .web-card {
+    background: white; border-radius: 20px; overflow: hidden;
+    border: 1.5px solid rgba(0,0,0,0.06);
+    transition: all 0.25s; text-decoration: none; color: inherit;
+    display: flex; flex-direction: column;
   }
-  .copy-bubble {
-    background: white; border-radius: 20px; padding: 28px;
-    position: relative; border: 1.5px solid rgba(0,0,0,0.06);
-    transition: all 0.25s;
+  .web-card:hover { border-color: var(--green); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.07); }
+  .web-preview {
+    background: linear-gradient(135deg, var(--dark) 0%, #2d2d2d 100%);
+    padding: 32px; display: flex; align-items: center; justify-content: center;
+    min-height: 120px; position: relative; overflow: hidden;
   }
-  .copy-bubble:hover { border-color: var(--green); }
-  .copy-brand {
-    font-size: 12px; font-weight: 700; color: var(--light);
-    letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;
-    display: flex; align-items: center; gap: 8px;
+  .web-preview::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(139,196,160,0.2) 0%, rgba(255,47,123,0.1) 100%);
   }
-  .copy-brand::before {
-    content: ''; width: 8px; height: 8px; border-radius: 50%;
-    background: var(--green); flex-shrink: 0;
+  .web-url {
+    font-family: 'DM Sans', monospace;
+    font-size: 13px; font-weight: 600; color: var(--green);
+    position: relative; z-index: 1;
   }
-  .copy-bubble p { font-size: 14px; line-height: 1.8; color: var(--mid); }
-  .copy-bubble p strong { color: var(--dark); }
-  .copy-context {
-    font-size: 11px; font-weight: 600; color: var(--pink);
-    text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;
+  .web-body { padding: 28px; flex: 1; display: flex; flex-direction: column; }
+  .web-tipo {
+    font-size: 11px; font-weight: 700; letter-spacing: 2px;
+    text-transform: uppercase; color: var(--pink); margin-bottom: 10px;
   }
-
-  /* PROCESO */
-  .proceso {
-    background: linear-gradient(135deg, var(--green) 0%, #6aaa88 100%);
-    padding: 100px 60px; color: white;
-  }
-  .proceso .section-title { color: white; }
-  .proceso .section-title em { color: rgba(255,255,255,0.6); font-style: italic; }
-  .proceso .section-label { color: rgba(255,255,255,0.7); }
-  .proceso-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; margin-top: 60px; }
-  .step {
-    background: rgba(255,255,255,0.12);
-    border-radius: 24px; padding: 40px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255,255,255,0.2);
-    transition: transform 0.25s;
-  }
-  .step:hover { transform: translateY(-6px); }
-  .step-num {
+  .web-title {
     font-family: 'Playfair Display', serif;
-    font-size: 56px; font-weight: 900;
-    color: rgba(255,255,255,0.2); line-height: 1;
-    margin-bottom: 16px;
+    font-size: 20px; font-weight: 700; color: var(--dark);
+    margin-bottom: 12px; line-height: 1.3;
   }
-  .step-title { font-size: 20px; font-weight: 700; color: white; margin-bottom: 12px; }
-  .step-desc { font-size: 14px; color: rgba(255,255,255,0.75); line-height: 1.7; font-weight: 300; }
+  .web-desc { font-size: 14px; line-height: 1.7; color: var(--mid); flex: 1; }
+  .web-cta {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 13px; font-weight: 600; color: var(--green-dark);
+    margin-top: 20px;
+  }
 
   /* FORMACIÓN */
   .formacion { padding: 100px 60px; background: white; }
@@ -445,7 +482,7 @@
   }
   .contact-cta-text {
     font-family: 'Playfair Display', serif;
-    font-size: 28px; font-style: italic; color: white;
+    font-size: 26px; font-style: italic; color: white;
     text-align: center; line-height: 1.4;
   }
   .btn-cta {
@@ -471,38 +508,28 @@
     from { opacity: 0; transform: translateY(30px); }
     to { opacity: 1; transform: translateY(0); }
   }
-  .fade-up {
-    opacity: 0;
-    animation: fadeUp 0.7s ease forwards;
-  }
+  .fade-up { opacity: 0; animation: fadeUp 0.7s ease forwards; }
   .fade-up.d1 { animation-delay: 0.1s; }
   .fade-up.d2 { animation-delay: 0.25s; }
   .fade-up.d3 { animation-delay: 0.4s; }
   .fade-up.d4 { animation-delay: 0.55s; }
-  .fade-up.d5 { animation-delay: 0.7s; }
 
-  /* SCROLLBAR */
   ::-webkit-scrollbar { width: 6px; }
   ::-webkit-scrollbar-track { background: var(--cream); }
   ::-webkit-scrollbar-thumb { background: var(--green); border-radius: 3px; }
-
-  /* DECORATIVE ACCENT LINE */
-  .accent-line {
-    display: flex; align-items: center; gap: 16px;
-    margin: 20px 0 48px;
-  }
-  .accent-line-bar { height: 3px; width: 60px; background: var(--pink); border-radius: 2px; }
-  .accent-line-text { font-size: 13px; color: var(--light); font-style: italic; }
 
   @media (max-width: 900px) {
     nav { padding: 16px 24px; }
     .nav-links { display: none; }
     .hero, .sobre-mi, .contacto { grid-template-columns: 1fr; }
     .hero-right { min-height: 50vh; }
-    section { padding: 60px 24px; }
-    .clientes-grid, .texto-grid, .copy-display, .proceso-steps, .form-grid, .muestras-intro { grid-template-columns: 1fr; }
+    section, .sobre-mi, .marcas-header, .muestras, .formacion, .contacto { padding: 60px 24px; }
+    .marcas { padding: 60px 0; }
+    .slider-track { padding: 0 24px 20px; }
+    .muestras-intro, .form-grid, .copy-display, .web-grid { grid-template-columns: 1fr; }
     .hero-left { padding: 60px 24px; }
     .hero-right-inner { padding: 40px 24px; }
+    .slider-controls { padding: 24px 24px 0; }
   }
 </style>
 </head>
@@ -513,9 +540,9 @@
   <div class="nav-logo">Agustina <span>Rikert</span></div>
   <ul class="nav-links">
     <li><a href="#sobre-mi">Sobre mí</a></li>
-    <li><a href="#trabajo">Clientes</a></li>
+    <li><a href="#marcas">Marcas</a></li>
     <li><a href="#textos">Textos</a></li>
-    <li><a href="#proceso">Proceso</a></li>
+    <li><a href="#formacion">Formación</a></li>
     <li><a href="#contacto">Contacto</a></li>
   </ul>
 </nav>
@@ -523,18 +550,18 @@
 <!-- HERO -->
 <section class="hero" id="inicio">
   <div class="hero-left">
-    <span class="hero-tag fade-up d1">Portfolio 2025</span>
+    <span class="hero-tag fade-up d1">Portfolio 2026</span>
     <h1 class="hero-title fade-up d2">
-      Redacto.<br>
-      <span class="italic">Pienso.</span><br>
-      <span class="line2">Conecto.</span>
+      Pienso.<br>
+      <span class="italic">Conecto.</span><br>
+      <span class="line2">Redacto.</span>
     </h1>
     <p class="hero-desc fade-up d3">
       Copywriter y redactora de contenidos. Creo textos que no solo se leen, sino que mueven a la acción. Estrategia, creatividad y claridad en cada palabra.
     </p>
     <div class="hero-ctas fade-up d4">
       <a href="#textos" class="btn-primary">Ver mis textos</a>
-      <a href="#contacto" class="btn-ghost">Contactarme</a>
+      <a href="https://api.whatsapp.com/send/?phone=3492228854&text&type=phone_number&app_absent=0" target="_blank" class="btn-ghost">Contactarme</a>
     </div>
   </div>
   <div class="hero-right">
@@ -544,20 +571,16 @@
     <div class="hero-right-inner">
       <div class="hero-stats">
         <div>
-          <div class="stat-num">4+</div>
+          <div class="stat-num">5+</div>
           <div class="stat-label">Años de experiencia</div>
         </div>
         <div>
-          <div class="stat-num">10+</div>
+          <div class="stat-num">15+</div>
           <div class="stat-label">Marcas acompañadas</div>
         </div>
         <div>
-          <div class="stat-num">3</div>
-          <div class="stat-label">Rubros distintos</div>
-        </div>
-        <div>
           <div class="stat-num">∞</div>
-          <div class="stat-label">Ganas de escribir</div>
+          <div class="stat-label">Ganas de crecer</div>
         </div>
       </div>
       <p class="hero-quote">
@@ -632,57 +655,111 @@
   </div>
 </div>
 
-<!-- CLIENTES -->
-<section class="trabajo" id="trabajo">
-  <span class="section-label">Clientes</span>
-  <h2 class="section-title">Marcas que <em>acompañé</em></h2>
-  <div class="clientes-grid">
-    <div class="cliente-card">
-      <div class="cliente-sector">Indumentaria · Insumos</div>
-      <div class="cliente-name">Avíos Estilo</div>
-      <div class="cliente-desc">Proveedor de etiquetas para marcas de indumentaria y calzado. Desarrollé estrategia de contenido completa, pilares de comunicación, calendarios de posteos, campañas de Meta Ads y flujos de email marketing.</div>
-      <div class="cliente-tags">
-        <span class="ctag">Estrategia</span>
-        <span class="ctag">Meta Ads</span>
-        <span class="ctag">Email marketing</span>
-        <span class="ctag">Guiones</span>
-      </div>
+<!-- MARCAS -->
+<section class="marcas" id="marcas">
+  <div class="marcas-header">
+    <span class="section-label">Trabajo</span>
+    <h2 class="section-title">Marcas que <em>acompañé</em></h2>
+  </div>
+  <div class="slider-wrap">
+    <div class="slider-track" id="slider">
+
+      <a href="https://www.instagram.com/aviosestiloetiquetas/" target="_blank" class="cliente-card">
+        <div class="cliente-sector">Indumentaria · Insumos</div>
+        <div class="cliente-name">Avíos Estilo</div>
+        <div class="cliente-desc">Proveedor de etiquetas para marcas de indumentaria y calzado. Desarrollé estrategia de contenido completa, pilares de comunicación, calendarios, campañas de Meta Ads y email marketing.</div>
+        <div class="cliente-tags">
+          <span class="ctag">Estrategia</span>
+          <span class="ctag">Meta Ads</span>
+          <span class="ctag">Email</span>
+          <span class="ctag">Guiones</span>
+        </div>
+        <span class="cliente-link">Ver perfil <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <a href="https://www.instagram.com/lanin_ok/" target="_blank" class="cliente-card">
+        <div class="cliente-sector">Diseño · Restauración de muebles</div>
+        <div class="cliente-name">Clínica del Mueble Lañin</div>
+        <div class="cliente-desc">Restauran y diseñan muebles con carácter. Oficio, materiales nobles y un legado de lujo desde 1930. Redacté calendarios de contenido con voz sofisticada, alineada al mundo del diseño de lujo.</div>
+        <div class="cliente-tags">
+          <span class="ctag">Calendario de contenidos</span>
+          <span class="ctag">Voz de marca</span>
+          <span class="ctag">Diseño de lujo</span>
+        </div>
+        <span class="cliente-link">Ver perfil <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <a href="https://www.instagram.com/cementeriojardindelcielo/" target="_blank" class="cliente-card">
+        <div class="cliente-sector">Servicios · Social impact</div>
+        <div class="cliente-name">Jardín del Cielo</div>
+        <div class="cliente-desc">Cementerio parque y crematorio privado con más de 30 años en Trelew. Desarrollé estrategia, sitio web completo, anuncios de Meta Ads y pilares editoriales con tono empático y claro.</div>
+        <div class="cliente-tags">
+          <span class="ctag">Estrategia</span>
+          <span class="ctag">Web copy</span>
+          <span class="ctag">Meta Ads</span>
+          <span class="ctag">Tono empático</span>
+        </div>
+        <span class="cliente-link">Ver perfil <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <a href="https://www.instagram.com/lapanaceaviajesok/" target="_blank" class="cliente-card">
+        <div class="cliente-sector">Turismo · Experiencias</div>
+        <div class="cliente-name">La Panacea Viajes</div>
+        <div class="cliente-desc">Agencia de turismo especializada en viajes de experiencia. Redacté calendarios de contenido mensuales con voz cálida y evocadora, para generar comunidad y conversión a reservas.</div>
+        <div class="cliente-tags">
+          <span class="ctag">Calendarios</span>
+          <span class="ctag">Copies Instagram</span>
+          <span class="ctag">Guiones voz en off</span>
+        </div>
+        <span class="cliente-link">Ver perfil <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <a href="https://www.facebook.com/ads/library/?active_status=active&ad_type=all&country=AR&is_targeted_country=false&media_type=all&search_type=page&sort_data[direction]=desc&sort_data[mode]=total_impressions&view_all_page_id=185150838323704" target="_blank" class="cliente-card">
+        <div class="cliente-sector">Gastronomía · Retail</div>
+        <div class="cliente-name">Rincón Vino</div>
+        <div class="cliente-desc">Vinoteca y delicatessen en CABA. Redacté anuncios para Meta Ads orientados a resonar con la comunidad local e incentivar la compra por WhatsApp con delivery.</div>
+        <div class="cliente-tags">
+          <span class="ctag">Meta Ads</span>
+          <span class="ctag">Delivery</span>
+          <span class="ctag">Comunidad local</span>
+        </div>
+        <span class="cliente-link">Ver anuncios <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <a href="https://www.instagram.com/cafemartinezrafaela/" target="_blank" class="cliente-card">
+        <div class="cliente-sector">Gastronomía · Franquicia</div>
+        <div class="cliente-name">Café Martínez</div>
+        <div class="cliente-desc">Community manager y creadora de contenido para la sucursal Rafaela. Produje materiales exclusivos para la localidad, incluyendo fotografías, videos y copies pensados para resonar con la comunidad local.</div>
+        <div class="cliente-tags">
+          <span class="ctag">Community management</span>
+          <span class="ctag">Copies</span>
+          <span class="ctag">Fotografía</span>
+        </div>
+        <span class="cliente-link">Ver perfil <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+
+      <a href="https://www.naldo.com.ar/" target="_blank" class="cliente-card">
+        <div class="cliente-sector">Ecommerce · Tecnología</div>
+        <div class="cliente-name">Naldo</div>
+        <div class="cliente-desc">Trabajé freelance para BullMetrix Growth Marketing redactando contenido SEO para mejorar el posicionamiento de Naldo: fichas de producto, descripciones de categorías, landing pages de eventos y notas de blog.</div>
+        <div class="cliente-tags">
+          <span class="ctag">SEO</span>
+          <span class="ctag">Ecommerce</span>
+          <span class="ctag">Blog</span>
+          <span class="ctag">Fichas de producto</span>
+        </div>
+        <span class="cliente-link">Ver sitio <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span>
+      </a>
+
     </div>
-    <div class="cliente-card">
-      <div class="cliente-sector">Diseño de Interiores · Premium</div>
-      <div class="cliente-name">Cueros Leblon</div>
-      <div class="cliente-desc">Distribuidor de cueros de calidad exportadora para proyectos de interiorismo y arquitectura. Redacté calendarios de contenido con voz sofisticada y editorial, alineados al mundo del diseño de lujo.</div>
-      <div class="cliente-tags">
-        <span class="ctag">Calendario de contenidos</span>
-        <span class="ctag">Copies Instagram</span>
-        <span class="ctag">Voz de marca</span>
-      </div>
-    </div>
-    <div class="cliente-card">
-      <div class="cliente-sector">Servicios · Social Impact</div>
-      <div class="cliente-name">Jardín del Cielo</div>
-      <div class="cliente-desc">Cementerio parque y crematorio privado con más de 30 años en Trelew. Desarrollé estrategia de contenido, redacción de sitio web completo, anuncios de Meta Ads y pilares editoriales con tono empático y claro.</div>
-      <div class="cliente-tags">
-        <span class="ctag">Estrategia</span>
-        <span class="ctag">Web copy</span>
-        <span class="ctag">Meta Ads</span>
-        <span class="ctag">Tono empático</span>
-      </div>
-    </div>
-    <div class="cliente-card">
-      <div class="cliente-sector">Turismo · Experiencias</div>
-      <div class="cliente-name">La Panacea Viajes</div>
-      <div class="cliente-desc">Agencia de turismo especializada en viajes de experiencia. Redacté calendarios de contenido mensuales con voz cálida, cercana y evocadora, para generar comunidad y conversión a reservas.</div>
-      <div class="cliente-tags">
-        <span class="ctag">Calendario de contenidos</span>
-        <span class="ctag">Copies Instagram</span>
-        <span class="ctag">Guiones de voz en off</span>
-      </div>
-    </div>
+  </div>
+  <div class="slider-controls">
+    <button class="slider-btn" onclick="slide(-1)">&#8592;</button>
+    <button class="slider-btn" onclick="slide(1)">&#8594;</button>
   </div>
 </section>
 
-<!-- TEXTOS / MUESTRAS -->
+<!-- TEXTOS -->
 <section class="muestras" id="textos">
   <div class="muestras-intro">
     <div>
@@ -692,47 +769,65 @@
     <p>Cada texto tiene un objetivo: conectar con las personas correctas, en el momento justo, con las palabras que generan acción. Acá vas a ver algunos de los trabajos más representativos de mi carrera.</p>
   </div>
 
-  <!-- TABS -->
   <div class="tabs-nav">
-    <button class="tab-btn active" onclick="switchTab('copies', this)">Copies de redes</button>
+    <button class="tab-btn active" onclick="switchTab('copies', this)">Copies publicados</button>
     <button class="tab-btn" onclick="switchTab('estrategia', this)">Estrategia</button>
-    <button class="tab-btn" onclick="switchTab('ads', this)">Anuncios</button>
     <button class="tab-btn" onclick="switchTab('web', this)">Web copy</button>
   </div>
 
   <!-- TAB: COPIES -->
   <div class="tab-content active" id="tab-copies">
     <div class="copy-display">
+
       <div class="copy-bubble">
         <div class="copy-brand">La Panacea Viajes · Instagram</div>
-        <div class="copy-context">Post inspiracional</div>
-        <p>Viajar distinto es bajar el ruido, escuchar el entorno y estar presentes en cada lugar que pisamos. Naturaleza, silencio y conexión real. Esa es —y sigue siendo— la esencia de La Panacea.<br><br>¿Qué es para vos viajar distinto?</p>
+        <div class="copy-context">Reel promocional — Ecuador &amp; Galápagos</div>
+        <p>Mucho snorkel nos espera en este nuevo destino: lo mejor de Ecuador y la magia de las Islas Galápagos. ¿Te gustaría vivir un viaje así? Ya podés sumarte a esta aventura única 💚 👉 Toda la info en nuestra web: lapanaceaviajes.com</p>
+        <a href="https://www.instagram.com/reel/DNyI1Xb3OTo/" target="_blank" class="copy-link">Ver publicación <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
       </div>
+
       <div class="copy-bubble">
-        <div class="copy-brand">La Panacea Viajes · Instagram</div>
-        <div class="copy-context">Reel Grecia y Turquía — Voz en off</div>
-        <p>Hay cosas que no entran en una foto. Como la forma en que cambia la luz en cada lugar. Las callecitas de piedra, los balcones con flores, las casas de colores, la música en las calles.<br><br>Caminar sin entender del todo… y aun así, sentirse en casa.</p>
+        <div class="copy-brand">Clínica del Mueble Lañin · Instagram</div>
+        <div class="copy-context">Post emocional</div>
+        <p>¿Cuál es el mueble que no pudiste reemplazar? El que tiene historia. El que tiene marca. El que todavía recordás en el lugar que siempre ocupó. 🛠️ En la Clínica del Mueble lo recibimos con el mismo cariño con el que vos lo guardaste. Mandanos una foto y empezamos.</p>
+        <a href="https://www.instagram.com/p/DYmtpeWk155/?img_index=1" target="_blank" class="copy-link">Ver publicación <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
       </div>
-      <div class="copy-bubble">
-        <div class="copy-brand">Cueros Leblon · Instagram</div>
-        <div class="copy-context">Post de producto</div>
-        <p>La exclusividad no está en la perfección, sino en lo auténtico. Patagonia Brown es la prueba de que lo perfectamente imperfecto no se oculta, se exhibe con orgullo.</p>
-      </div>
-      <div class="copy-bubble">
-        <div class="copy-brand">Cueros Leblon · Instagram</div>
-        <div class="copy-context">Carrusel interiorismo</div>
-        <p>El cuero tiene el poder de transformar un espacio sin necesidad de dominarlo. La clave está en encontrar el equilibrio perfecto entre texturas y materiales.<br><br>Deslizá para descubrir 5 maneras de sumar cueros Leblon a tus proyectos con sofisticación y armonía ✨</p>
-      </div>
-      <div class="copy-bubble">
-        <div class="copy-brand">Jardín del Cielo · Instagram</div>
-        <div class="copy-context">Anuncio cremación de mascotas</div>
-        <p>Muchas personas no saben que este servicio está incluido dentro de nuestro Plan Integral Familiar. Y cuando lo descubren, cambia completamente la forma de verlo. Porque saben que, llegado el momento, también van a poder despedir a su mascota con el cuidado que merece.</p>
-      </div>
+
       <div class="copy-bubble">
         <div class="copy-brand">Avíos Estilo · Instagram</div>
-        <div class="copy-context">Anuncio TOFU — Copy</div>
-        <p>Cuando empezás a mirar tu producto con más atención, empezás a notar detalles que antes pasaban desapercibidos. La etiqueta es uno de ellos. 🧵<br><br>También forma parte de cómo se ve tu marca en cada prenda.</p>
+        <div class="copy-context">Reel educativo</div>
+        <p>En etiquetas, lo que se apura hoy, se nota mañana. Por eso trabajamos cada pedido con tiempo, validación previa y criterio técnico antes de producir ✅ No es solo una forma de trabajar. Es la experiencia que nos dieron los años en el rubro.</p>
+        <a href="https://www.instagram.com/p/DV_hBCvj-E3/" target="_blank" class="copy-link">Ver publicación <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
       </div>
+
+      <div class="copy-bubble">
+        <div class="copy-brand">Jardín del Cielo · Instagram</div>
+        <div class="copy-context">Post emocional — mascotas</div>
+        <p>Hay vínculos que dejan una marca para siempre. Y cuando llega el momento de despedirlos, poder hacerlo de una manera cuidada y respetuosa también es importante. Si querés conocer más sobre este servicio, escribinos.</p>
+        <a href="https://www.instagram.com/p/DXcLZpPAvA1/" target="_blank" class="copy-link">Ver publicación <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+      </div>
+
+      <div class="copy-bubble">
+        <div class="copy-brand">Rincón Vino · Instagram</div>
+        <div class="copy-context">Carrusel educativo — delivery</div>
+        <p>Para una cena, una cita, o para tener en casa… Nos escribís, nos contás qué necesitás y te recomendamos una buena opción. ¡Te lo llevamos a domicilio!</p>
+        <a href="https://www.instagram.com/p/DXfWDm1DhGQ/" target="_blank" class="copy-link">Ver publicación <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+      </div>
+
+      <div class="copy-bubble">
+        <div class="copy-brand">Café Martínez Rafaela · Instagram</div>
+        <div class="copy-context">Post promocional de producto</div>
+        <p>¿Algo dulce pero fresco para combatir este calor? ¡Tenemos la opción ideal! 👉 Franuí aterrizó nuevamente en @cafemartinezrafaela para revolucionar el verano. 🤤 La combinación perfecta entre la frescura de la frambuesa con la dulzura y la cremosidad del chocolate 🍫 ¿Se nota que somos fans? ¡Vení a buscar tu pote!</p>
+        <a href="https://www.instagram.com/p/CnPMzAtudwU/" target="_blank" class="copy-link">Ver publicación <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+      </div>
+
+      <div class="copy-bubble">
+        <div class="copy-brand">Naldo · Blog</div>
+        <div class="copy-context">Nota SEO — Redacción para ecommerce</div>
+        <p>Nota de blog optimizada para posicionamiento orgánico: <em>Notebooks para diseño y arquitectura</em>. Redactada con estructura SEO, palabras clave naturales y foco en la intención de búsqueda del usuario.</p>
+        <a href="https://blog.naldo.com.ar/notebooks-diseno-arquitectura/" target="_blank" class="copy-link">Ver nota <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></a>
+      </div>
+
     </div>
   </div>
 
@@ -755,7 +850,7 @@
           <br>
           <p>A partir de la investigación de mercado se detectó que el público no solo evalúa precio o producto, sino, sobre todo, <strong>el riesgo de equivocarse al elegir proveedor</strong>. Por eso, la comunicación debe ayudar a reducir ese riesgo percibido, mostrando cómo se trabaja, qué criterio se usa para recomendar, quién está detrás y qué gana el cliente al elegir Avíos.</p>
           <br>
-          <p>Este nuevo enfoque propone dejar de comunicar sólo "qué se hace" y empezar a mostrar también: <strong>cómo se hace, por qué se recomienda cada cosa, quién está detrás y cómo eso impacta en la marca del cliente</strong>.</p>
+          <p>El nuevo enfoque propone dejar de comunicar sólo "qué se hace" y empezar a mostrar también: <strong>cómo se hace, por qué se recomienda cada cosa, quién está detrás y cómo eso impacta en la marca del cliente</strong>.</p>
           <br>
           <p>Se definieron <strong>cinco ejes de contenido</strong>: Resultados reales con historia · Educación sobre etiquetas · El proceso por dentro · Autoridad desde la experiencia · Confianza y respaldo.</p>
         </div>
@@ -780,92 +875,40 @@
           <br>
           <p>El gran diferencial del Plan Integral Familiar —la <strong>cremación de mascotas incluida</strong>, única en la región— fue el eje narrativo principal de toda la estrategia. Una decisión de comunicación que conecta emocionalmente con el público.</p>
           <br>
-          <p>Pilares: Educación clara · Las mascotas son parte de la familia · El valor de anticiparse · Conexión con la comunidad.</p>
+          <p>Pilares definidos: Educación clara · Las mascotas son parte de la familia · El valor de anticiparse · Conexión con la comunidad.</p>
         </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TAB: ADS -->
-  <div class="tab-content" id="tab-ads">
-    <div class="texto-grid">
-      <div class="texto-card">
-        <div class="tc-tipo">Guión Reel — TOFU</div>
-        <div class="tc-cliente">Avíos Estilo · Meta Ads</div>
-        <div class="tc-title">Dos prendas pueden ser exactamente iguales… pero una verse más prolija.</div>
-        <div class="tc-text">"Si tenés una marca de indumentaria o de calzado y estás creciendo, seguro empezaste a mirar cosas que antes no mirabas. Esos pequeños detalles que hacen que tus prendas se vean distintas. La etiqueta es uno de esos detalles."</div>
-      </div>
-      <div class="texto-card">
-        <div class="tc-tipo">Guión Reel — BOFU</div>
-        <div class="tc-cliente">Avíos Estilo · Meta Ads</div>
-        <div class="tc-title">¿Querés cotizar etiquetas para tu marca? Sólo necesitamos 3 datos.</div>
-        <div class="tc-text">"Primero: qué tipo de etiqueta estás buscando. Segundo: la medida de la etiqueta. Tercero: la cantidad que necesitás producir. Y si tenés el diseño o el logo, mejor todavía. Con esa información ya podemos preparar tu cotización."</div>
-      </div>
-      <div class="texto-card">
-        <div class="tc-tipo">Carrusel — TOFU</div>
-        <div class="tc-cliente">Jardín del Cielo · Meta Ads</div>
-        <div class="tc-title">¿Tu cobertura de sepelio cubre todo lo que pensás?</div>
-        <div class="tc-text">"Tener cobertura no siempre significa tener todo incluido. Y muchos pagan un servicio de sepelio sin saber bien qué cubre. Informarte también es una forma de cuidar a tu familia."</div>
-      </div>
-      <div class="texto-card">
-        <div class="tc-tipo">Email marketing — Contenido de valor</div>
-        <div class="tc-cliente">Avíos Estilo · Email</div>
-        <div class="tc-title">¿El plastisol es para tu producto? 🤔</div>
-        <div class="tc-text">"No se trata sólo de 'qué queda lindo', sino de para qué producto es y cómo se va a usar. Antes de producir, siempre preguntamos dónde va aplicada la etiqueta. Así nos aseguramos de que la elección tenga sentido y de que el resultado funcione de verdad."</div>
       </div>
     </div>
   </div>
 
   <!-- TAB: WEB -->
   <div class="tab-content" id="tab-web">
-    <div class="texto-grid">
-      <div class="texto-card">
-        <div class="tc-tipo">Home — Hero principal</div>
-        <div class="tc-cliente">Jardín del Cielo · Sitio web</div>
-        <div class="tc-title">Plan Integral Familiar: todo resuelto para vos y los tuyos</div>
-        <div class="tc-text">Parcela o cremación, sepelio y cremación de mascotas, en un solo plan. Porque si decimos que es familiar, también pensamos en tu compañero de cuatro patas.</div>
-      </div>
-      <div class="texto-card">
-        <div class="tc-tipo">Página de servicios</div>
-        <div class="tc-cliente">Jardín del Cielo · Sitio web</div>
-        <div class="tc-title">Cremación de mascotas — Un servicio único en la región</div>
-        <div class="tc-text">"Sabemos lo difícil que es despedirse de una mascota. Por eso estamos para acompañarte. Nuestro compromiso es honrar siempre el vínculo que los unió. Porque ellos también son parte de la familia."</div>
-      </div>
-      <div class="texto-card">
-        <div class="tc-tipo">Página de plan</div>
-        <div class="tc-cliente">Jardín del Cielo · Sitio web</div>
-        <div class="tc-title">Una decisión que habla de amor</div>
-        <div class="tc-text">El Plan Integral Familiar es el único en la región que contempla todo lo que necesitás: cremación o parcela, sepelio y cremación de mascotas. Es una manera amorosa de anticiparte, cuidar a los tuyos y vivir con tranquilidad.</div>
-      </div>
-      <div class="texto-card">
-        <div class="tc-tipo">Investigación de mercado aplicada</div>
-        <div class="tc-cliente">Avíos Estilo · Estrategia</div>
-        <div class="tc-title">El problema del cliente: miedo a equivocarse</div>
-        <div class="tc-text">"Este público vive con miedo a equivocarse al elegir proveedor de etiquetas, porque siente que lo que está en juego no es solo un insumo, sino parte de la identidad de su marca. En el fondo, no busca solo etiquetas: busca seguridad, respaldo y tranquilidad."</div>
-      </div>
-    </div>
-  </div>
-</section>
+    <div class="web-grid">
 
-<!-- PROCESO -->
-<section class="proceso" id="proceso">
-  <span class="section-label">Cómo trabajo</span>
-  <h2 class="section-title">No arranco<br><em>diseñando.</em><br>Arranco entendiendo.</h2>
-  <div class="proceso-steps">
-    <div class="step">
-      <div class="step-num">01</div>
-      <div class="step-title">Miro tu marca</div>
-      <div class="step-desc">Entiendo qué estás comunicando hoy, qué funciona, qué no, y qué oportunidades hay sin explotar. Sin prejuicios y con mirada editorial.</div>
-    </div>
-    <div class="step">
-      <div class="step-num">02</div>
-      <div class="step-title">Ordeno ideas</div>
-      <div class="step-desc">Defino la estrategia: qué conviene mostrar, cómo decirlo, a quién y para qué. Cada publicación responde a una idea, no a la urgencia del momento.</div>
-    </div>
-    <div class="step">
-      <div class="step-num">03</div>
-      <div class="step-title">Creo el contenido</div>
-      <div class="step-desc">Redacto los textos: copies, guiones, estrategias, emails. Con voz propia de la marca, criterio editorial y atención a cada detalle.</div>
+      <a href="https://sepeliosdelcielo.com.ar/" target="_blank" class="web-card">
+        <div class="web-preview">
+          <span class="web-url">sepeliosdelcielo.com.ar</span>
+        </div>
+        <div class="web-body">
+          <div class="web-tipo">Sitio web completo</div>
+          <div class="web-title">Sepelios del Cielo — Nuevo modelo de suscripción</div>
+          <div class="web-desc">Redacté todas las secciones y landings de este sitio web orientado a un modelo de suscripción para cremación. Desde el home hasta cada página de servicio: copy estratégico, estructura clara y tono accesible para un tema sensible.</div>
+          <span class="web-cta">Visitar sitio <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></span>
+        </div>
+      </a>
+
+      <a href="https://jardindelcielo.com.ar/" target="_blank" class="web-card">
+        <div class="web-preview">
+          <span class="web-url">jardindelcielo.com.ar</span>
+        </div>
+        <div class="web-body">
+          <div class="web-tipo">Sitio web completo</div>
+          <div class="web-title">Jardín del Cielo — Cementerio parque</div>
+          <div class="web-desc">Redacté el sitio completo: home, páginas de planes (Jardín del Cielo y Plan Integral Familiar), secciones de servicios (cremación individual, parcelas, sepelio, cremación de mascotas) y landing de necesidad inmediata. Tono empático y orientado a la conversión.</div>
+          <span class="web-cta">Visitar sitio <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg></span>
+        </div>
+      </a>
+
     </div>
   </div>
 </section>
@@ -876,7 +919,7 @@
   <h2 class="section-title">Aprendizaje <em>continuo</em></h2>
   <div class="form-grid">
     <div>
-      <div class="form-col-title">Educación formal</div>
+      <div class="form-col-title">Educación formal y cursos</div>
       <div class="form-item">
         <div class="form-dot"></div>
         <div>
@@ -898,13 +941,13 @@
         <div>
           <div class="form-year">2023</div>
           <div class="form-name">Rúcula Digital Academy</div>
-          <div class="form-detail">Redacción SEO & Copywriting</div>
+          <div class="form-detail">Redacción SEO &amp; Copywriting</div>
         </div>
       </div>
       <div class="form-item">
         <div class="form-dot" style="background:var(--pink)"></div>
         <div>
-          <div class="form-year">2024 – en curso</div>
+          <div class="form-year">2024</div>
           <div class="form-name">Luzzi Digital</div>
           <div class="form-detail">Copywriting: escribir para vender · Edición de video con CapCut</div>
         </div>
@@ -927,18 +970,27 @@
           <div class="form-detail">Marco Común Europeo de Referencia (MCER)</div>
         </div>
       </div>
-      <div class="form-col-title" style="margin-top: 40px;">Lo que hago mejor</div>
+      <div class="form-col-title" style="margin-top: 40px;">Lo que me caracteriza</div>
       <div class="form-item">
         <div class="form-dot"></div>
-        <div><div class="form-name">Encontrar el ángulo que conecta</div><div class="form-detail">Siempre hay una historia detrás de un producto o servicio. Sé encontrarla.</div></div>
+        <div>
+          <div class="form-name">Encontrar el ángulo que conecta</div>
+          <div class="form-detail">Siempre hay una historia detrás de un producto o servicio. Sé encontrarla.</div>
+        </div>
       </div>
       <div class="form-item">
         <div class="form-dot" style="background:var(--pink)"></div>
-        <div><div class="form-name">Adaptar la voz a cada marca</div><div class="form-detail">De lo sofisticado al cotidiano, mantengo coherencia y personalidad en cada texto.</div></div>
+        <div>
+          <div class="form-name">Adaptar la voz a cada marca</div>
+          <div class="form-detail">De lo sofisticado al cotidiano, mantengo coherencia y personalidad en cada texto.</div>
+        </div>
       </div>
       <div class="form-item">
         <div class="form-dot"></div>
-        <div><div class="form-name">Pensar antes de escribir</div><div class="form-detail">Ningún texto sale sin estrategia. Primero el "para qué", después el "cómo".</div></div>
+        <div>
+          <div class="form-name">Pensar antes de escribir</div>
+          <div class="form-detail">Ningún texto sale sin estrategia. Primero el "para qué", después el "cómo".</div>
+        </div>
       </div>
     </div>
   </div>
@@ -948,8 +1000,8 @@
 <div class="contacto" id="contacto">
   <div>
     <span class="section-label" style="color:var(--green)">Trabajemos juntos</span>
-    <h2 class="section-title">¿Tenés un<br>proyecto en <em>mente</em>?</h2>
-    <p class="contacto-desc">Si lo que viste resonó con lo que necesitás, escribime. Cuanto más me contés sobre tu marca, mejor puedo ayudarte.</p>
+    <h2 class="section-title">¿Buscás una<br>redactora <em>creativa</em>?</h2>
+    <p class="contacto-desc">Tengo experiencia en agencias, clientes directos y proyectos freelance. Si estás buscando sumar alguien que piense la comunicación de forma estratégica y la ejecute con criterio editorial, me encantaría que hablemos.</p>
     <div class="contact-items">
       <a href="mailto:agusrikert2@gmail.com" class="contact-item">
         <div class="ci-icon">✉️</div>
@@ -958,7 +1010,7 @@
           <div class="ci-value">agusrikert2@gmail.com</div>
         </div>
       </a>
-      <a href="https://wa.me/5493492228854" class="contact-item">
+      <a href="https://api.whatsapp.com/send/?phone=3492228854&text&type=phone_number&app_absent=0" target="_blank" class="contact-item">
         <div class="ci-icon">💬</div>
         <div>
           <div class="ci-label">WhatsApp</div>
@@ -977,15 +1029,15 @@
   <div class="contact-right">
     <div class="big-letter">AG</div>
     <div class="contact-cta-wrap">
-      <p class="contact-cta-text">"Si llegaste hasta acá,<br>ya aprendiste algo."</p>
-      <a href="mailto:agusrikert2@gmail.com" class="btn-cta">Escribirme ahora →</a>
+      <p class="contact-cta-text">Escribime y<br>charlamos.</p>
+      <a href="https://api.whatsapp.com/send/?phone=3492228854&text&type=phone_number&app_absent=0" target="_blank" class="btn-cta">Escribirme por WhatsApp →</a>
     </div>
   </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
-  <span>© 2025 Agustina Rikert · Redactora de contenidos</span>
+  <span>© 2026 Agustina Rikert · Redactora de contenidos</span>
   <span>Hecho con mucho criterio editorial ✍️</span>
 </footer>
 
@@ -1002,7 +1054,31 @@
     card.classList.toggle('open');
   }
 
-  // Intersection observer for subtle reveal
+  // Slider
+  function slide(dir) {
+    const track = document.getElementById('slider');
+    const cardW = track.querySelector('.cliente-card').offsetWidth + 24;
+    track.scrollBy({ left: dir * cardW, behavior: 'smooth' });
+  }
+
+  // Drag to scroll
+  const track = document.getElementById('slider');
+  let isDown = false, startX, scrollLeft;
+  track.addEventListener('mousedown', e => {
+    isDown = true; track.classList.add('grabbing');
+    startX = e.pageX - track.offsetLeft;
+    scrollLeft = track.scrollLeft;
+  });
+  track.addEventListener('mouseleave', () => { isDown = false; track.classList.remove('grabbing'); });
+  track.addEventListener('mouseup', () => { isDown = false; track.classList.remove('grabbing'); });
+  track.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - track.offsetLeft;
+    track.scrollLeft = scrollLeft - (x - startX);
+  });
+
+  // Scroll reveal
   const obs = new IntersectionObserver((entries) => {
     entries.forEach(e => {
       if (e.isIntersecting) {
@@ -1012,7 +1088,7 @@
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.cliente-card, .texto-card, .copy-bubble, .step, .form-item, .timeline-item').forEach(el => {
+  document.querySelectorAll('.copy-bubble, .web-card, .step, .form-item, .timeline-item, .estrategia-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(20px)';
     el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
